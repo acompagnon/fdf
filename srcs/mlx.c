@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 15:33:02 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/02 18:15:22 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/02 18:30:01 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void			drawing_map(t_env *e)
 
 	y = 375;
 	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, 10, 10, e->mlx.color, "ESC TO EXIT\n");
-
 	while (++y - 375 < e->map_size_y)
 	{
 		x = 325;
@@ -29,7 +28,6 @@ void			drawing_map(t_env *e)
 		{
 			if (e->map_tab[y - 375][x - 325])
 			{
-				printf("e->map_tab[y - 375][x - 325] = %d\n", e->map_tab[y - 375][x - 325]);
 				i = -1;
 				while (++i < 10)
 				{
@@ -57,6 +55,13 @@ int				key_hook(int key, t_env *e)
 	return (0);
 }
 
+int				mouse_hook(int key, t_env *e)
+{
+	(void)e;
+	printf("key = %d\n", key);
+	return (0);
+}
+
 void			mlx_call(t_env *e)
 {
 	if (!(e->mlx.mlx_ptr = mlx_init()))
@@ -68,5 +73,6 @@ void			mlx_call(t_env *e)
 	e->mlx.data = mlx_get_data_addr(e->mlx.img_ptr, &e->mlx.bpp, &e->mlx.s_l, &e->mlx.endian);
 	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, 375, 325, e->mlx.color, "PRESS ENTER TO START\n");
 	mlx_key_hook(e->mlx.win_ptr, key_hook, e);
+	mlx_mouse_hook(e->mlx.win_ptr, mouse_hook, e);
 	mlx_loop(e->mlx.mlx_ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 17:58:19 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/02 18:12:35 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/02 18:30:03 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@ typedef struct		s_env
 	int				map_size_x;
 }					t_env;
 
-//MLX.C => 3
+//MLX.C => 4
 void				drawing_map(t_env *e);
 int					key_hook(int key, t_env *e);
+int					mouse_hook(int key, t_env *e);
 void				mlx_call(t_env *e);
 
 //INIT.C => 1
