@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 17:58:19 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/08 17:18:47 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/08 18:02:48 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct		s_env
 	int				origin_y;
 	int				distance_x;
 	int				distance_y;
+	int				mouse_released;
 }					t_env;
 
 //MLX.C => 7

@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 12:03:08 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/08 17:05:42 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/08 18:01:06 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,5 @@ void			init(t_env *e)
 	e->mlx.s_l = 800 * 4;
 //	e->mlx.color = 0x009905;
 	e->mlx.color = 0x3399ff;
+	e->mouse_released = 1;
 }

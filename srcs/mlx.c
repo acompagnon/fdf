@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 15:33:02 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/08 17:18:45 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/08 18:02:46 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void		draw_map(t_env *e)
 		while (++j < e->map_size_x)
 		{
 			if (i - 1 && e->map_tab[i][j] && e->map_tab[i][j - 1])
-				draw_line(e, e->origin_x + e->distance_x, e->origin_y);
+				draw_line(e, e->origin_x + e->distance_x, e->origin_y + e->map_tab[i][j]);
 			draw_line(e, e->origin_x + e->distance_x, e->origin_y + e->map_tab[i][j]); // trace la ligne en relief
 			draw_line(e, e->origin_x + e->distance_x, e->origin_y); // trace de gauche a droite
 			if (i + 1 < e->map_size_y)
@@ -151,11 +151,35 @@ int			key_hook(int key, t_env *e)
 	return (0);
 }
 
+void		erase_zone(t_env *e, int x, int y)
+{
+	int		erase_x;
+	int		erase_y;
+
+	erase_x = x - 5;
+	erase_y = y - 5;
+	while (erase_y++ < y + 5)
+	{
+		erase_x = x - 5;
+		mlx_pixel_put(e->mlx.mlx_ptr, e->mlx.win_ptr, erase_x,
+			erase_y, 0x000000);
+		while (erase_x++ < x + 5)
+			mlx_pixel_put(e->mlx.mlx_ptr, e->mlx.win_ptr, erase_x,
+			erase_y, 0x000000);
+	}
+	
+}
+
 int			mouse_hook(int key, int x, int y, t_env *e)
 {
-	(void)key;
-	if (e->origin_x != -1 && e->origin_y != -1)
+	printf("key = %d | x = %d | y = %d\n", key, x, y);
+	if (key == 1 && e->origin_x != -1 && e->origin_y != -1)
 		draw_line(e, x, y);
+	if (key == 2 || e->mouse_released)
+	{
+		e->mouse_released = 0;
+		erase_zone(e, x, y);
+	}
 	if (e->key_36)
 	{
 		e->origin_x = (e->origin_x == -1) ? x : e->origin_x;
@@ -164,6 +188,13 @@ int			mouse_hook(int key, int x, int y, t_env *e)
 	return (0);
 }
 
+int			test_hook(t_env *e)
+{
+	e->mouse_released = 1;
+	printf("key_release\n");
+	(void)e;
+	return (0);
+}
 void		mlx_call(t_env *e)
 {
 	if (!(e->mlx.mlx_ptr = mlx_init()))
@@ -177,6 +208,7 @@ void		mlx_call(t_env *e)
 	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, 375, 325,
 			e->mlx.color, "PRESS ENTER TO START\n");
 	mlx_key_hook(e->mlx.win_ptr, key_hook, e);
+	mlx_hook(e->mlx.win_ptr, 5, 1L<<3, test_hook, e);
 	mlx_mouse_hook(e->mlx.win_ptr, mouse_hook, e);
 	mlx_loop(e->mlx.mlx_ptr);
 }
