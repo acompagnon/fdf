@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 15:33:02 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/08 16:59:23 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/08 17:18:45 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,14 +101,16 @@ void		draw_map(t_env *e)
 		e->origin_x = 220;
 		while (++j < e->map_size_x)
 		{
+			if (i - 1 && e->map_tab[i][j] && e->map_tab[i][j - 1])
+				draw_line(e, e->origin_x + e->distance_x, e->origin_y);
 			draw_line(e, e->origin_x + e->distance_x, e->origin_y + e->map_tab[i][j]); // trace la ligne en relief
-			draw_line(e, e->origin_x + e->distance_x, e->origin_y); // trace la ligne de gauche a droite
+			draw_line(e, e->origin_x + e->distance_x, e->origin_y); // trace de gauche a droite
 			if (i + 1 < e->map_size_y)
-				draw_line(e, e->origin_x, e->origin_y + e->distance_y); // trace la ligne de haut en bas
+				draw_line(e, e->origin_x, e->origin_y + e->distance_y); // trace de haut en bas
 			e->origin_x = e->origin_x + e->distance_x;
 		}
 		if (i + 1 < e->map_size_y)
-			draw_line(e, e->origin_x, e->origin_y + e->distance_y);
+			draw_line(e, e->origin_x, e->origin_y + e->distance_y); // trace de haut en bas
 		e->origin_y = e->origin_y + e->distance_y;
 	}
 	e->origin_x = -1;
@@ -122,6 +124,11 @@ int			key_hook(int key, t_env *e)
 		mlx_destroy_window(e->mlx.mlx_ptr, e->mlx.win_ptr);
 		free_env(e, NULL, 1);
 	}
+	if (key == 45)
+	{
+		e->origin_x = -1;
+		e->origin_y = -1;
+	}
 	if (key == 36)
 	{
 		if (e->key_36)
@@ -132,9 +139,13 @@ int			key_hook(int key, t_env *e)
 		e->key_36 = 1;
 		mlx_clear_window(e->mlx.mlx_ptr, e->mlx.win_ptr);
 		mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, 10, 10,
-				e->mlx.color, "ESC   => EXIT\n");
-		mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, 10, 30,
-				e->mlx.color, "ENTER => RESET\n");
+				e->mlx.color, "Press esc to exit\n");
+		mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, 10, 25,
+				e->mlx.color, "Press enter to clear\n");
+		mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, 10, 40,
+				e->mlx.color, "Press n to reset origin\n");
+		mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, 10, 55,
+				e->mlx.color, "Click to draw\n");
 		draw_map(e);
 	}
 	return (0);
