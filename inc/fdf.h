@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 17:58:19 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/02 18:30:03 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/08 16:59:25 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "libft.h"
 # include "mlx.h"
 # include <stdlib.h>
+# include <math.h>
 
 /* ************************************************************************** */
 # include <stdio.h>
@@ -46,12 +47,22 @@ typedef struct		s_env
 	int				**map_tab;
 	int				map_size_y;
 	int				map_size_x;
+	int				key_36;
+	int				dx;
+	int				dy;
+	int				origin_x;
+	int				origin_y;
+	int				distance_x;
+	int				distance_y;
 }					t_env;
 
-//MLX.C => 4
-void				drawing_map(t_env *e);
+//MLX.C => 7
+int					abs_value(int nb);
+void				draw_after(t_env *e, int x, int y);
+void				draw_after(t_env *e, int x, int y);
+void				draw_line(t_env *e, int y, int x);
 int					key_hook(int key, t_env *e);
-int					mouse_hook(int key, t_env *e);
+int					mouse_hook(int key, int x, int y, t_env *e);
 void				mlx_call(t_env *e);
 
 //INIT.C => 1
