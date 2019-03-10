@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 17:58:19 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/08 18:02:48 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/10 17:29:05 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,17 @@ typedef struct		s_map
 	struct s_map	*next;
 }					t_map;
 
+typedef struct		s_color
+{
+	int				blue;
+	int				green;
+	int				red;
+	int				black;
+	int				pink;
+	int				yellow;
+	int				white;
+}					t_color;
+
 typedef struct		s_mlx
 {
 	void			*mlx_ptr;
@@ -37,17 +48,19 @@ typedef struct		s_mlx
 	int				endian;
 	int				bpp;
 	int				s_l;
-	int				color;
 }					t_mlx;
 
 typedef struct		s_env
 {
 	struct s_map	*map;
 	struct s_mlx	mlx;
+	struct s_color	color;
 	int				**map_tab;
 	int				map_size_y;
 	int				map_size_x;
 	int				key_36;
+	int				key_125;
+	int				key_126;
 	int				dx;
 	int				dy;
 	int				origin_x;
@@ -57,13 +70,22 @@ typedef struct		s_env
 	int				mouse_released;
 }					t_env;
 
-//MLX.C => 7
-int					abs_value(int nb);
-void				draw_after(t_env *e, int x, int y);
-void				draw_after(t_env *e, int x, int y);
-void				draw_line(t_env *e, int y, int x);
+//HOOKS.C => 3
 int					key_hook(int key, t_env *e);
 int					mouse_hook(int key, int x, int y, t_env *e);
+int					motion_hook(int x, int y, t_env *e);
+int					test_hook(int key, int x, int y, t_env *e);
+void				erase_zone(t_env *e, int x, int y);
+
+//LINE.C => 4
+int					abs_value(int nb);
+void				draw_after(t_env *e, int x, int y, int color);
+void				draw_after(t_env *e, int x, int y, int color);
+void				draw_line(t_env *e, int y, int x, int color);
+
+//MLX.C => 4
+void				compute_medium_distance(t_env *e);
+void				draw_map(t_env *e);
 void				mlx_call(t_env *e);
 
 //INIT.C => 1

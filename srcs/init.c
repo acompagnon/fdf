@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 12:03:08 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/08 18:01:06 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/10 17:29:03 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,19 @@ void			init(t_env *e)
 	e->distance_x = 0;
 	e->distance_y = 0;
 	e->key_36 = 0;
+	e->key_125 = 0;
+	e->key_126 = 0;
 	e->origin_x = -1;
 	e->origin_y = -1;
 	e->mlx.bpp = 32;
 	e->mlx.endian = 0;
 	e->mlx.s_l = 800 * 4;
-//	e->mlx.color = 0x009905;
-	e->mlx.color = 0x3399ff;
-	e->mouse_released = 1;
+	e->color.green = 0x009905;
+	e->color.blue = 0x3399ff;
+	e->color.red = 0xFF0000;
+	e->color.black = 0x000000;
+	e->color.pink = 0xFC0FC0;
+	e->color.yellow = 0xFFD300;
+	e->color.white = 0xFFFFFF;
+	e->mouse_released = 0;
 }

@@ -6,80 +6,11 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 15:33:02 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/08 18:02:46 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/10 17:29:01 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-int			abs_value(int nb)
-{
-	return ((nb < 0) ? -nb : nb);
-}
-
-void		draw_before(t_env *e, int x, int y)
-{
-	int		i;
-	int		cumul;
-	int		tmp_x;
-	int		tmp_y;
-
-	i = 1;
-	cumul = e->dx / 2;
-	tmp_x = e->origin_x;
-	tmp_y = e->origin_y;
-	while (i <= e->dx)
-	{
-		(x - e->origin_x > 0) ? tmp_x++ : tmp_x--;
-		cumul += e->dy;
-		if (cumul >= e->dx)
-		{
-			cumul -= e->dx;
-			(y - e->origin_y > 0) ? tmp_y++ : tmp_y--;
-		}
-		mlx_pixel_put(e->mlx.mlx_ptr, e->mlx.win_ptr, tmp_x,
-				tmp_y, e->mlx.color);
-		i++;
-	}
-}
-
-void		draw_after(t_env *e, int x, int y)
-{
-	int		i;
-	int		cumul;
-	int		tmp_x;
-	int		tmp_y;
-
-	i = 1;
-	cumul = e->dy / 2;
-	tmp_x = e->origin_x;
-	tmp_y = e->origin_y;
-	while (i <= e->dy)
-	{
-		(y - e->origin_y > 0) ? tmp_y++ : tmp_y--;
-		cumul += e->dx;
-		if (cumul >= e->dy)
-		{
-			cumul -= e->dy;
-			(x - e->origin_x > 0) ? tmp_x++ : tmp_x--;
-		}
-		mlx_pixel_put(e->mlx.mlx_ptr, e->mlx.win_ptr, tmp_x,
-				tmp_y, e->mlx.color);
-		i++;
-	}
-}
-
-void		draw_line(t_env *e, int x, int y)
-{
-	e->dx = abs_value(x - e->origin_x);
-	e->dy = abs_value(y - e->origin_y);
-	mlx_pixel_put(e->mlx.mlx_ptr, e->mlx.win_ptr, e->origin_x,
-			e->origin_y, e->mlx.color);
-	if (e->dx > e->dy)
-		draw_before(e, x, y);
-	else
-		draw_after(e, x, y);
-}
 
 void		compute_medium_distance(t_env *e)
 {
@@ -87,114 +18,59 @@ void		compute_medium_distance(t_env *e)
 	e->distance_y = 500 / e->map_size_y;
 }
 
+void		y_matrix(t_env *e, int i, int j, int color)
+{
+	int		tmp_x;
+	int		tmp_y;
+	int		relief;
+
+	tmp_x = e->origin_x;
+	tmp_y = e->origin_y;
+	if (e->key_126)
+		e->map_tab[i][j] += 3;
+	if (e->key_125)
+		e->map_tab[i][j] -= 3;
+	relief = e->map_tab[i][j];
+	draw_line(e, e->origin_x + e->distance_x, e->origin_y - relief, e->color.blue);
+	if (j + 1 < e->map_size_x && e->map_tab[i][j + 1])
+	draw_line(e, e->origin_x, e->origin_y - e->distance_y, color);
+	e->origin_y -= e->distance_y;
+	draw_line(e, e->origin_x + e->distance_x, e->origin_y - relief, e->color.yellow);
+	e->origin_x += e->distance_x;
+	draw_line(e, e->origin_x, e->origin_y - relief, e->color.green);
+	draw_line(e, e->origin_x, e->origin_y + e->distance_y - relief, e->color.green);
+	e->origin_x = tmp_x;
+	e->origin_y = tmp_y;
+}
 void		draw_map(t_env *e)
 {
 	int		i;
 	int		j;
 
 	i = -1;
-	e->origin_y = 140;
+	e->origin_y = 143;
 	compute_medium_distance(e);
 	while (++i < e->map_size_y)
 	{
 		j = -1;
-		e->origin_x = 220;
+		e->origin_x = 252;
 		while (++j < e->map_size_x)
 		{
-			if (i - 1 && e->map_tab[i][j] && e->map_tab[i][j - 1])
-				draw_line(e, e->origin_x + e->distance_x, e->origin_y + e->map_tab[i][j]);
-			draw_line(e, e->origin_x + e->distance_x, e->origin_y + e->map_tab[i][j]); // trace la ligne en relief
-			draw_line(e, e->origin_x + e->distance_x, e->origin_y); // trace de gauche a droite
+			if (e->map_tab[i][j])
+				y_matrix(e, i, j, e->color.green);
+		/*	draw_line(e, e->origin_x + e->distance_x, e->origin_y, e->color.yellow); // trace de gauche a droite
 			if (i + 1 < e->map_size_y)
-				draw_line(e, e->origin_x, e->origin_y + e->distance_y); // trace de haut en bas
+				draw_line(e, e->origin_x, e->origin_y + e->distance_y, e->color.yellow); // trace de haut en bas*/
 			e->origin_x = e->origin_x + e->distance_x;
 		}
-		if (i + 1 < e->map_size_y)
-			draw_line(e, e->origin_x, e->origin_y + e->distance_y); // trace de haut en bas
+	/*	if (i + 1 < e->map_size_y)
+			draw_line(e, e->origin_x, e->origin_y + e->distance_y, e->color.yellow); // trace de haut en bas*/
 		e->origin_y = e->origin_y + e->distance_y;
 	}
 	e->origin_x = -1;
 	e->origin_y = -1;
 }
 
-int			key_hook(int key, t_env *e)
-{
-	if (key == 53 || key == 8)
-	{
-		mlx_destroy_window(e->mlx.mlx_ptr, e->mlx.win_ptr);
-		free_env(e, NULL, 1);
-	}
-	if (key == 45)
-	{
-		e->origin_x = -1;
-		e->origin_y = -1;
-	}
-	if (key == 36)
-	{
-		if (e->key_36)
-		{
-			e->origin_x = -1;
-			e->origin_y = -1;
-		}
-		e->key_36 = 1;
-		mlx_clear_window(e->mlx.mlx_ptr, e->mlx.win_ptr);
-		mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, 10, 10,
-				e->mlx.color, "Press esc to exit\n");
-		mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, 10, 25,
-				e->mlx.color, "Press enter to clear\n");
-		mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, 10, 40,
-				e->mlx.color, "Press n to reset origin\n");
-		mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, 10, 55,
-				e->mlx.color, "Click to draw\n");
-		draw_map(e);
-	}
-	return (0);
-}
-
-void		erase_zone(t_env *e, int x, int y)
-{
-	int		erase_x;
-	int		erase_y;
-
-	erase_x = x - 5;
-	erase_y = y - 5;
-	while (erase_y++ < y + 5)
-	{
-		erase_x = x - 5;
-		mlx_pixel_put(e->mlx.mlx_ptr, e->mlx.win_ptr, erase_x,
-			erase_y, 0x000000);
-		while (erase_x++ < x + 5)
-			mlx_pixel_put(e->mlx.mlx_ptr, e->mlx.win_ptr, erase_x,
-			erase_y, 0x000000);
-	}
-	
-}
-
-int			mouse_hook(int key, int x, int y, t_env *e)
-{
-	printf("key = %d | x = %d | y = %d\n", key, x, y);
-	if (key == 1 && e->origin_x != -1 && e->origin_y != -1)
-		draw_line(e, x, y);
-	if (key == 2 || e->mouse_released)
-	{
-		e->mouse_released = 0;
-		erase_zone(e, x, y);
-	}
-	if (e->key_36)
-	{
-		e->origin_x = (e->origin_x == -1) ? x : e->origin_x;
-		e->origin_y = (e->origin_y == -1) ? y : e->origin_y;
-	}
-	return (0);
-}
-
-int			test_hook(t_env *e)
-{
-	e->mouse_released = 1;
-	printf("key_release\n");
-	(void)e;
-	return (0);
-}
 void		mlx_call(t_env *e)
 {
 	if (!(e->mlx.mlx_ptr = mlx_init()))
@@ -205,10 +81,11 @@ void		mlx_call(t_env *e)
 		free_env(e, NULL, 1);
 	e->mlx.data = mlx_get_data_addr(e->mlx.img_ptr, &e->mlx.bpp,
 			&e->mlx.s_l, &e->mlx.endian);
-	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, 375, 325,
-			e->mlx.color, "PRESS ENTER TO START\n");
+	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, 395, 335,
+			e->color.white, "PRESS ENTER TO START\n");
 	mlx_key_hook(e->mlx.win_ptr, key_hook, e);
 	mlx_hook(e->mlx.win_ptr, 5, 1L<<3, test_hook, e);
+	mlx_hook(e->mlx.win_ptr, 6, 1L<<6, motion_hook, e);
 	mlx_mouse_hook(e->mlx.win_ptr, mouse_hook, e);
 	mlx_loop(e->mlx.mlx_ptr);
 }
