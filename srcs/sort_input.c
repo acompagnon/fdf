@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 18:03:45 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/02 15:24:49 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/11 19:16:30 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int				check_number(t_env *e, char *line)
 	(line[i] == '-') ? i++ : 1;
 	while (line[i] && line[i] != ' ')
 	{
-		if ((line[i] < '0' && line[i] > '9') || nb * 10 + (line[i] - 48) > 2147483647)
+		if ((line[i] < '0' && line[i] > '9')
+				|| nb * 10 + (line[i] - 48) > 2147483647)
 			free_env(e, NULL, 1);
 		else
 			nb = nb * 10 + (line[i] - 48);
@@ -67,13 +68,11 @@ void			fill_tab(t_env *e)
 		x = 0;
 		while (ptr->line[i])
 		{
-			nb = check_number(e, &ptr->line[i]);
-			e->map_tab[y][x++] = nb;
-			(nb < 0) ? i++ : 1;
+			e->map_tab[y][x++] = check_number(e, &ptr->line[i]);
+			(e->map_tab[y][x - 1] < 0) ? i++ : 1;
 			while (ptr->line[i] && ptr->line[i] >= '0' && ptr->line[i] <= '9')
 				i++;
-			if (ptr->line[i] && ptr->line[i] != ' ')
-				free_env(e, NULL, 1);
+			(ptr->line[i] && ptr->line[i] != ' ') ? free_env(e, NULL, 1) : 1;
 			while (ptr->line[i] && ptr->line[i] == ' ')
 				i++;
 		}
@@ -91,12 +90,14 @@ int				check_line(char *line)
 	nb = 0;
 	while (line[i])
 	{
-		if (line[i] != ' '  && line[i] != '-' && (line[i] < '0' || line[i] > '9'))
+		if (line[i] != ' ' && line[i] != '-'
+				&& (line[i] < '0' || line[i] > '9'))
 			return (0);
 		(line[i] == ' ') ? i++ : 1;
 		if (line[i] && (line[i] == '-' || (line[i] >= '0' && line[i] <= '9')))
 			nb++;
-		while (line[i] && (line[i] == '-' || (line[i] >= '0' && line[i] <= '9')))
+		while (line[i] && (line[i] == '-'
+				|| (line[i] >= '0' && line[i] <= '9')))
 			i++;
 	}
 	return (nb);
@@ -137,7 +138,8 @@ void			sort_input(t_env *e)
 	{
 		if ((len = check_line(line)))
 		{
-			if (len <= 0 || (e->map_size_x && len != e->map_size_x) || !(save_line(e, line)))
+			if (len <= 0 || (e->map_size_x && len != e->map_size_x)
+					|| !(save_line(e, line)))
 				free_env(e, line, 1);
 			e->map_size_x = len;
 			e->map_size_y++;

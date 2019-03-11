@@ -6,13 +6,34 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 12:03:08 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/11 17:39:32 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/11 19:16:34 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void			init(t_env *e)
+t_dot		new_line(int y, int x)
+{
+	t_dot	dot;
+
+	dot.x = x;
+	dot.y = y;
+	dot.z = 0;
+	return (dot);
+}
+
+t_dot		new_dot(t_env *e, int y, int x)
+{
+	t_dot	dot;
+
+	dot.x = x * e->camera.zoom + 400;
+	dot.y = y * e->camera.zoom - 50;
+	if ((dot.z = e->map_tab[y][x]))
+		dot.z += e->camera.altitude;
+	return (dot);
+}
+
+void		init(t_env *e)
 {
 	e->map = NULL;
 	e->map_tab = NULL;

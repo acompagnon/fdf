@@ -6,13 +6,14 @@
 #    By: acompagn <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/09 16:27:08 by acompagn          #+#    #+#              #
-#    Updated: 2019/02/27 16:54:57 by acompagn         ###   ########.fr        #
+#    Updated: 2019/03/11 18:54:41 by acompagn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-SRCS = ft_memset.c \
+SRCS = ft_abs.c \
+	  ft_memset.c \
 	  ft_bzero.c \
 	  ft_memcpy.c \
 	  ft_memccpy.c \

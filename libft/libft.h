@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 13:45:43 by acompagn          #+#    #+#             */
-/*   Updated: 2019/02/27 16:53:48 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/11 18:55:01 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+double				abs_double(double nb);
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memcpy(void *dst, const void *src, size_t n);

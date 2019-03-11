@@ -6,7 +6,7 @@
 #    By: acompagn <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 17:56:14 by acompagn          #+#    #+#              #
-#    Updated: 2019/03/11 17:07:31 by acompagn         ###   ########.fr        #
+#    Updated: 2019/03/11 19:00:29 by acompagn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,11 @@ SRCS = 		main.c \
 			free.c \
 			init.c \
 			print.c \
-			mlx.c \
 			hooks.c \
-			line.c \
+			project.c \
+			draw.c \
+			menu.c \
+			clean.c \
 
 FDF_SRCS = $(patsubst %,$(DIR_SRCS)/%,$(SRCS))
 

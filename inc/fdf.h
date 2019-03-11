@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 17:58:19 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/11 17:39:38 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/11 19:16:38 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,39 +72,46 @@ typedef struct		s_env
 	int				map_size_y;
 	int				map_size_x;
 	int				key_36;
-	int				dx;
-	int				dy;
+	double			dx;
+	double			dy;
 	double			origin_x;
 	double			origin_y;
 	int				mouse_released;
 }					t_env;
 
-//HOOKS.C => 3
+//PROJECT.C => 5
+void				rotate_x(t_env *e, int *y, int *z);
+void				rotate_y(t_env *e, int *x, int *z);
+void				rotate_z(t_env *e, int *x, int *y);
+void				iso(int *x, int *y, int z);
+t_dot				projection(t_env *e, t_dot dot);
+
+//CLEAN.C => 3
+void				restart(t_env *e);
 void				erase_zone(t_env *e, int x, int y);
 void				clean_window(t_env *e);
+
+//MENU.C => 1
 void				menu_window(t_env *e);
+
+//HOOKS.C => 3
 int					key_hook(int key, t_env *e);
 int					mouse_hook(int key, int x, int y, t_env *e);
 int					motion_hook(int x, int y, t_env *e);
 int					test_hook(int key, int x, int y, t_env *e);
-void				erase_zone(t_env *e, int x, int y);
+int					holding_key(int key, t_env *e);
 
-//LINE.C => 4
-int					abs_value(int nb);
+//LINE.C => 5
 void				put_pixel(t_env *e, int x, int y, int color);
 void				draw_before(t_env *e, t_dot dot1, t_dot dot2, int color);
 void				draw_after(t_env *e, t_dot dot1, t_dot dot2, int color);
 void				draw_line(t_env *e, t_dot dot1, t_dot dot2, int color);
+void				draw_map(t_env *e);
 
-//MLX.C => 4
+//INIT.C => 3
+void				init(t_env *e);
 t_dot				new_line(int y, int x);
 t_dot				new_dot(t_env *e, int y, int x);
-void				iso(int *x, int *y, int z);
-void				draw_map(t_env *e);
-void				mlx_call(t_env *e);
-
-//INIT.C => 1
-void				init(t_env *e);
 
 //FREE.C => 2
 void				free_tab(t_env *e);
