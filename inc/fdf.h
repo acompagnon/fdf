@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 17:58:19 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/10 17:29:05 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/11 15:15:38 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ typedef struct		s_map
 	int				id;
 	struct s_map	*next;
 }					t_map;
+
+typedef struct		s_dot
+{
+	int				x;
+	int				y;
+	int				z;
+}					t_dot;
 
 typedef struct		s_color
 {
@@ -56,17 +63,15 @@ typedef struct		s_env
 	struct s_mlx	mlx;
 	struct s_color	color;
 	int				**map_tab;
+	int				zoom;
 	int				map_size_y;
 	int				map_size_x;
 	int				key_36;
-	int				key_125;
-	int				key_126;
+	int				altitude;
 	int				dx;
 	int				dy;
-	int				origin_x;
-	int				origin_y;
-	int				distance_x;
-	int				distance_y;
+	double			origin_x;
+	double			origin_y;
 	int				mouse_released;
 }					t_env;
 
@@ -79,12 +84,14 @@ void				erase_zone(t_env *e, int x, int y);
 
 //LINE.C => 4
 int					abs_value(int nb);
-void				draw_after(t_env *e, int x, int y, int color);
-void				draw_after(t_env *e, int x, int y, int color);
-void				draw_line(t_env *e, int y, int x, int color);
+void				draw_before(t_env *e, t_dot dot1, t_dot dot2, int color);
+void				draw_after(t_env *e, t_dot dot1, t_dot dot2, int color);
+void				draw_line(t_env *e, t_dot dot1, t_dot dot2, int color);
 
 //MLX.C => 4
-void				compute_medium_distance(t_env *e);
+t_dot				new_line(int y, int x);
+t_dot				new_dot(t_env *e, int y, int x);
+void				iso(int *x, int *y, int z);
 void				draw_map(t_env *e);
 void				mlx_call(t_env *e);
 

@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 15:03:55 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/10 17:29:07 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/11 15:15:32 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ int			key_hook(int key, t_env *e)
 	printf("key == %d\n", key);
 	if (key == 126 || key == 125)
 	{
-		e->key_126 = (key == 125) ? 0 : 1;
-		e->key_125 = (key == 125) ? 1 : 0;
+		e->altitude = (key == 125) ? e->altitude - 1 : e->altitude + 1;
 		mlx_clear_window(e->mlx.mlx_ptr, e->mlx.win_ptr);
 		draw_map(e);
 	}
@@ -76,7 +75,7 @@ int			key_hook(int key, t_env *e)
 		{
 			e->origin_x = -1;
 			e->origin_y = -1;
-			e->key_126 = 0;
+			e->altitude = 0;
 		}
 		e->key_36 = 1;
 		mlx_clear_window(e->mlx.mlx_ptr, e->mlx.win_ptr);
@@ -90,7 +89,7 @@ int			key_hook(int key, t_env *e)
 int			mouse_hook(int key, int x, int y, t_env *e)
 {
 	if (key == 1 && e->origin_x != -1 && e->origin_y != -1)
-		draw_line(e, x, y, e->color.red);
+		draw_line(e, new_line(e->origin_y, e->origin_x), new_line(y, x), e->color.red);
 	if (key == 2 || e->mouse_released)
 	{
 		e->mouse_released = 1;

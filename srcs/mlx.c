@@ -6,69 +6,83 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 15:33:02 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/10 17:29:01 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/11 15:15:34 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void		compute_medium_distance(t_env *e)
+/*
+void		rotate_x(t_env *e, t_dot *dot)
 {
-	e->distance_x = 500 / e->map_size_x;
-	e->distance_y = 500 / e->map_size_y;
+	
 }
 
-void		y_matrix(t_env *e, int i, int j, int color)
+void		rotate_y(t_env *e, t_dot *dot)
+{
+	
+}
+
+void		rotate_z(t_env *e, t_dot *dot)
+{
+	
+}
+*/
+t_dot		new_line(int y, int x)
+{
+	t_dot	dot;
+
+	dot.x = x;
+	dot.y = y;
+	dot.z = 0;
+	return (dot);
+}
+
+t_dot		new_dot(t_env *e, int y, int x)
+{
+	t_dot	dot;
+
+	dot.x = x * e->zoom + 400;
+	dot.y = y * e->zoom - 50;
+	dot.z = e->map_tab[y][x];
+	return (dot);
+}
+
+void		iso(int *x, int *y, int z)
 {
 	int		tmp_x;
 	int		tmp_y;
-	int		relief;
 
-	tmp_x = e->origin_x;
-	tmp_y = e->origin_y;
-	if (e->key_126)
-		e->map_tab[i][j] += 3;
-	if (e->key_125)
-		e->map_tab[i][j] -= 3;
-	relief = e->map_tab[i][j];
-	draw_line(e, e->origin_x + e->distance_x, e->origin_y - relief, e->color.blue);
-	if (j + 1 < e->map_size_x && e->map_tab[i][j + 1])
-	draw_line(e, e->origin_x, e->origin_y - e->distance_y, color);
-	e->origin_y -= e->distance_y;
-	draw_line(e, e->origin_x + e->distance_x, e->origin_y - relief, e->color.yellow);
-	e->origin_x += e->distance_x;
-	draw_line(e, e->origin_x, e->origin_y - relief, e->color.green);
-	draw_line(e, e->origin_x, e->origin_y + e->distance_y - relief, e->color.green);
-	e->origin_x = tmp_x;
-	e->origin_y = tmp_y;
+	tmp_x = *x;
+	tmp_y = *y;
+	*x = (tmp_x - tmp_y) * cos(0.523599);
+	*y = -z + (tmp_x + tmp_y) * sin(0.523599);
 }
+
+t_dot		projection(t_dot dot)
+{
+	iso(&dot.x, &dot.y, dot.z);
+	return (dot);
+}
+
 void		draw_map(t_env *e)
 {
 	int		i;
 	int		j;
 
 	i = -1;
-	e->origin_y = 143;
-	compute_medium_distance(e);
 	while (++i < e->map_size_y)
 	{
 		j = -1;
-		e->origin_x = 252;
 		while (++j < e->map_size_x)
 		{
-			if (e->map_tab[i][j])
-				y_matrix(e, i, j, e->color.green);
-		/*	draw_line(e, e->origin_x + e->distance_x, e->origin_y, e->color.yellow); // trace de gauche a droite
 			if (i + 1 < e->map_size_y)
-				draw_line(e, e->origin_x, e->origin_y + e->distance_y, e->color.yellow); // trace de haut en bas*/
-			e->origin_x = e->origin_x + e->distance_x;
+				draw_line(e, projection(new_dot(e, i, j)), projection(new_dot(e, i + 1, j)),
+						e->color.blue);
+			if (j + 1 < e->map_size_x)
+				draw_line(e, projection(new_dot(e, i, j)), projection(new_dot(e, i, j + 1)),
+						e->color.yellow);
 		}
-	/*	if (i + 1 < e->map_size_y)
-			draw_line(e, e->origin_x, e->origin_y + e->distance_y, e->color.yellow); // trace de haut en bas*/
-		e->origin_y = e->origin_y + e->distance_y;
 	}
-	e->origin_x = -1;
-	e->origin_y = -1;
 }
 
 void		mlx_call(t_env *e)
