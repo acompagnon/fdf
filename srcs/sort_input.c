@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 18:03:45 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/11 19:16:30 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/11 19:21:38 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void			fill_tab(t_env *e)
 	int		i;
 	int		y;
 	int		x;
-	int		nb;
 
 	ptr = e->map;
 	y = 0;
