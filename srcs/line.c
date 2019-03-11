@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 15:02:31 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/11 15:15:36 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/11 17:39:36 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,19 @@
 int			abs_value(int nb)
 {
 	return ((nb < 0) ? -nb : nb);
+}
+
+void		put_pixel(t_env *e, int x, int y, int color)
+{
+	int		i;
+
+	if (x > 0 && y > 0 && y < 750 && x < 1000)
+	{
+		i = (x * e->mlx.bpp / 8) + (y * e->mlx.s_l);
+		e->mlx.data[i++] = color >> 16;
+		e->mlx.data[i++] = color >> 8;
+		e->mlx.data[i] = color;
+	}
 }
 
 void		draw_before(t_env *e, t_dot dot1, t_dot dot2, int color)
@@ -37,8 +50,7 @@ void		draw_before(t_env *e, t_dot dot1, t_dot dot2, int color)
 			cumul -= e->dx;
 			(dot1.y - dot2.y > 0) ? tmp_y++ : tmp_y--;
 		}
-		mlx_pixel_put(e->mlx.mlx_ptr, e->mlx.win_ptr, tmp_x,
-				tmp_y, color);
+		put_pixel(e, tmp_x, tmp_y, color);
 		i++;
 	}
 }
@@ -63,8 +75,7 @@ void		draw_after(t_env *e, t_dot dot1, t_dot dot2, int color)
 			cumul -= e->dy;
 			(dot1.x - dot2.x > 0) ? tmp_x++ : tmp_x--;
 		}
-		mlx_pixel_put(e->mlx.mlx_ptr, e->mlx.win_ptr, tmp_x,
-				tmp_y, color);
+		put_pixel(e, tmp_x, tmp_y, color);
 		i++;
 	}
 }
@@ -73,8 +84,7 @@ void		draw_line(t_env *e, t_dot dot1, t_dot dot2, int color)
 {
 	e->dx = abs_value(dot1.x - dot2.x);
 	e->dy = abs_value(dot1.y - dot2.y);
-	mlx_pixel_put(e->mlx.mlx_ptr, e->mlx.win_ptr, dot2.x,
-			dot2.y, color);
+	put_pixel(e, dot2.x, dot2.y, color);
 	if (e->dx > e->dy)
 		draw_before(e, dot1, dot2, color);
 	else

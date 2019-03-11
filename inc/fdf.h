@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 17:58:19 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/11 15:15:38 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/11 17:39:38 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@
 /* ************************************************************************** */
 # include <stdio.h>
 /* ************************************************************************** */
+# define PINK 0xFC0FC0
+# define GREEN 0x009905
+# define BLUE 0x3399ff
+# define RED 0xFF0000
+# define BLACK 0x000000
+# define YELLOW 0xFFD300
+# define WHITE 0xFFFFFF
+
 
 typedef struct		s_map
 {
@@ -35,17 +43,6 @@ typedef struct		s_dot
 	int				z;
 }					t_dot;
 
-typedef struct		s_color
-{
-	int				blue;
-	int				green;
-	int				red;
-	int				black;
-	int				pink;
-	int				yellow;
-	int				white;
-}					t_color;
-
 typedef struct		s_mlx
 {
 	void			*mlx_ptr;
@@ -57,17 +54,24 @@ typedef struct		s_mlx
 	int				s_l;
 }					t_mlx;
 
+typedef struct		s_camera
+{
+	int				zoom;
+	int				altitude;
+	double			rot_x;
+	double			rot_y;
+	double			rot_z;
+}					t_camera;
+
 typedef struct		s_env
 {
 	struct s_map	*map;
 	struct s_mlx	mlx;
-	struct s_color	color;
+	struct s_camera	camera;
 	int				**map_tab;
-	int				zoom;
 	int				map_size_y;
 	int				map_size_x;
 	int				key_36;
-	int				altitude;
 	int				dx;
 	int				dy;
 	double			origin_x;
@@ -76,6 +80,9 @@ typedef struct		s_env
 }					t_env;
 
 //HOOKS.C => 3
+void				erase_zone(t_env *e, int x, int y);
+void				clean_window(t_env *e);
+void				menu_window(t_env *e);
 int					key_hook(int key, t_env *e);
 int					mouse_hook(int key, int x, int y, t_env *e);
 int					motion_hook(int x, int y, t_env *e);
@@ -84,6 +91,7 @@ void				erase_zone(t_env *e, int x, int y);
 
 //LINE.C => 4
 int					abs_value(int nb);
+void				put_pixel(t_env *e, int x, int y, int color);
 void				draw_before(t_env *e, t_dot dot1, t_dot dot2, int color);
 void				draw_after(t_env *e, t_dot dot1, t_dot dot2, int color);
 void				draw_line(t_env *e, t_dot dot1, t_dot dot2, int color);
