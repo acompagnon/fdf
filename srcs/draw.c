@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:59:55 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/11 19:06:31 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/12 19:19:31 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void		put_pixel(t_env *e, int x, int y, int color)
 	if (x > 0 && y > 0 && y < 750 && x < 1000)
 	{
 		i = (x * e->mlx.bpp / 8) + (y * e->mlx.s_l);
-		e->mlx.data[i++] = color >> 16;
-		e->mlx.data[i++] = color >> 8;
-		e->mlx.data[i] = color;
+		e->mlx.data[i++] = color & 0xff;
+		e->mlx.data[i++] = color >> 8 & 0xff;
+		e->mlx.data[i] = color >> 16 & 0xff;
 	}
 }
 
@@ -110,4 +110,8 @@ void		draw_map(t_env *e)
 			e->mlx.img_ptr, 0, 0);
 	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, 10, 10, WHITE,
 			"Press o to see options\n");
+	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, 700, 690, WHITE,
+			"p -> parallel projection\n");
+	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, 700, 705, WHITE,
+			"i -> iso projection\n");
 }

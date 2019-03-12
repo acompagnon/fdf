@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 15:03:55 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/11 19:16:32 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/12 19:23:51 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 
 int			key_hook(int key, t_env *e)
 {
-	if (key == 53 || key == 8)
+	if (key == 34 || key == 35)
+	{
+		e->key_34 = (key == 35) ? 0 : 1;
+		restart(e);
+	}
+	else if (key == 53 || key == 8)
 	{
 		mlx_destroy_window(e->mlx.mlx_ptr, e->mlx.win_ptr);
 		free_env(e, NULL, 1);
@@ -34,7 +39,10 @@ int			key_hook(int key, t_env *e)
 int			mouse_hook(int key, int x, int y, t_env *e)
 {
 	if (key == 1 && e->origin_x != -1 && e->origin_y != -1)
+	{
 		draw_line(e, new_line(e->origin_y, e->origin_x), new_line(y, x), RED);
+		mlx_put_image_to_window(e->mlx.mlx_ptr, e->mlx.win_ptr, e->mlx.img_ptr, 0, 0);
+	}
 	if (key == 2 || e->mouse_released)
 	{
 		e->mouse_released = 1;

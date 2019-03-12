@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 18:03:45 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/11 19:21:38 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/12 19:23:54 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void			fill_tab(t_env *e)
 		x = 0;
 		while (ptr->line[i])
 		{
+			if (x == e->map_size_x || y == e->map_size_y)
+				break ;
 			e->map_tab[y][x++] = check_number(e, &ptr->line[i]);
 			(e->map_tab[y][x - 1] < 0) ? i++ : 1;
 			while (ptr->line[i] && ptr->line[i] >= '0' && ptr->line[i] <= '9')
@@ -80,10 +82,10 @@ void			fill_tab(t_env *e)
 	}
 }
 
-int				check_line(char *line)
+double			check_line(char *line)
 {
 	int		i;
-	int		nb;
+	double	nb;
 
 	i = 0;
 	nb = 0;
@@ -128,10 +130,49 @@ int				save_line(t_env *e, char *line)
 	return (1);
 }
 
+void			find_medium_altitude(t_env *e)
+{
+	int		i;
+	int		j;
+	int		count1;
+	int		count2;
+	int		alt_tmp;
+
+	i = -1;
+	count1 = 0;
+	count2 = 0;
+	alt_tmp = 0;
+	while (++i < e->map_size_y)
+	{
+		j = -1;
+		while (++j < e->map_size_x)
+		{
+			if (count2 > count1)
+			{
+				e->camera.medium_alt = alt_tmp;
+				count1 = count2;
+				count2 = 0;
+			}
+			if (!e->camera.medium_alt || e->map_tab[i][j] == e->camera.medium_alt)
+			{
+				e->camera.medium_alt = e->map_tab[i][j];
+				count1++;
+			}
+			else if (!alt_tmp || e->map_tab[i][j] == alt_tmp)
+				count2++;
+		}
+	}
+}
+
+void			find_zoom(t_env *e)
+{
+	e->camera.zoom = (100 / e->map_size_y) * 3;
+}
+
 void			sort_input(t_env *e)
 {
 	char	*line;
-	int		len;
+	double	len;
 
 	while (get_next_line(0, &line) > 0)
 	{
@@ -149,4 +190,6 @@ void			sort_input(t_env *e)
 	}
 	(!(malloc_tab(e))) ? free_env(e, NULL, 1) : 1;
 	fill_tab(e);
+	find_medium_altitude(e);
+	find_zoom(e);
 }

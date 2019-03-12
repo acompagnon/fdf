@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 17:58:19 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/11 19:16:38 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/12 19:23:56 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,9 @@ typedef struct		s_mlx
 
 typedef struct		s_camera
 {
-	int				zoom;
+	int				medium_alt;
 	int				altitude;
+	double			zoom;
 	double			rot_x;
 	double			rot_y;
 	double			rot_z;
@@ -69,9 +70,10 @@ typedef struct		s_env
 	struct s_mlx	mlx;
 	struct s_camera	camera;
 	int				**map_tab;
-	int				map_size_y;
-	int				map_size_x;
+	int				key_34;
 	int				key_36;
+	double			map_size_y;
+	double			map_size_x;
 	double			dx;
 	double			dy;
 	double			origin_x;
@@ -101,7 +103,7 @@ int					motion_hook(int x, int y, t_env *e);
 int					test_hook(int key, int x, int y, t_env *e);
 int					holding_key(int key, t_env *e);
 
-//LINE.C => 5
+//DRAW.C => 5
 void				put_pixel(t_env *e, int x, int y, int color);
 void				draw_before(t_env *e, t_dot dot1, t_dot dot2, int color);
 void				draw_after(t_env *e, t_dot dot1, t_dot dot2, int color);
@@ -121,12 +123,14 @@ void				free_env(t_env *e, void *to_free, int to_exit);
 void				print_map(t_env *e);
 void				print_tab(t_env *e);
 
-//SORT_INPUT.C => 6
+//SORT_INPUT.C => 8
 int					check_number(t_env *e, char *line);
 int					malloc_tab(t_env *e);
 void				fill_tab(t_env *e);
-int					check_line(char *line);
+double				check_line(char *line);
 int					save_line(t_env *e, char *line);
+void				find_medium_altitude(t_env *e);
+void				find_zoom(t_env *e);
 void				sort_input(t_env *e);
 
 #endif

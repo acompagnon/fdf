@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 12:03:08 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/11 19:16:34 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/12 19:23:53 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ t_dot		new_dot(t_env *e, int y, int x)
 {
 	t_dot	dot;
 
-	dot.x = x * e->camera.zoom + 400;
-	dot.y = y * e->camera.zoom - 50;
-	if ((dot.z = e->map_tab[y][x]))
+	dot.x = x * e->camera.zoom + ((e->key_34) ? 440 : 300);
+	dot.y = y * e->camera.zoom - ((e->key_34) ? 45 : -200);
+	if ((dot.z = e->map_tab[y][x]) && dot.z != e->camera.medium_alt)
 		dot.z += e->camera.altitude;
 	return (dot);
 }
@@ -40,7 +40,9 @@ void		init(t_env *e)
 	e->map_size_y = 0;
 	e->map_size_x = 0;
 	e->key_36 = 0;
-	e->camera.zoom = 30;
+	e->key_34 = 0;
+	e->camera.zoom = 0;
+	e->camera.medium_alt = 0;
 	e->camera.altitude = 0;
 	e->camera.rot_x = 0.00;
 	e->camera.rot_y = 0.00;

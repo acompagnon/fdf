@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:42:15 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/11 19:16:36 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/12 19:19:43 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ t_dot		projection(t_env *e, t_dot dot)
 	rotate_x(e, &dot.y, &dot.z);
 	rotate_y(e, &dot.x, &dot.z);
 	rotate_z(e, &dot.x, &dot.y);
-	iso(&dot.x, &dot.y, dot.z);
+	if (e->key_34)
+		iso(&dot.x, &dot.y, dot.z);
 	return (dot);
 }
