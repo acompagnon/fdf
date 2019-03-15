@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:59:55 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/15 18:44:06 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/15 19:17:59 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,9 @@ void		draw_map(t_env *e)
 		while (++j < e->map_size_x)
 		{
 			if (i + 1 < e->map_size_y)
-				draw_line(e, new_dot(e, i, j), new_dot(e, i + 1, j), BLUE);
+				draw_line(e, new_dot(e, i, j), new_dot(e, i + 1, j), e->color1);
 			if (j + 1 < e->map_size_x)
-				draw_line(e, new_dot(e, i, j), new_dot(e, i, j + 1), YELLOW);
+				draw_line(e, new_dot(e, i, j), new_dot(e, i, j + 1), e->color2);
 		}
 	}
 	mlx_put_image_to_window(e->mlx.mlx_ptr, e->mlx.win_ptr,

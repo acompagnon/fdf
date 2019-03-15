@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 15:03:55 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/15 18:44:13 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/15 19:24:34 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int			key_hook(int key, t_env *e)
 
 int			mouse_hook(int key, int x, int y, t_env *e)
 {
+	if (e->menu_mode && key == 1)
+		choose_color(e, x, y);
 	if (!e->menu_mode && (key == 2 || key == 1 || e->key.mouse_released))
 	{
 		e->key.left_click = (key == 2) ? 0 : 1;

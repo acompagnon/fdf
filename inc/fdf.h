@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 17:58:19 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/15 18:43:36 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/15 19:24:38 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ typedef struct		s_env
 	struct s_camera	camera;
 	struct s_key	key;
 	int				**map_tab;
+	int				color1;
+	int				color2;
 	int				menu_mode;
 	double			map_size_y;
 	double			map_size_x;
@@ -95,6 +97,8 @@ void				erase_zone(t_env *e, int x, int y);
 void				clean_window(t_env *e);
 
 //MENU.C => 1
+int					color(int color_place);
+void				add_color_choice(t_env *e, int code);
 void				add_side_menu(t_env *e);
 void				menu_window(t_env *e);
 
@@ -119,6 +123,7 @@ void				find_medium_altitude(t_env *e);
 void				find_zoom(t_env *e);
 
 //INIT.C => 4
+void				choose_color(t_env *e, int x, int y);
 void				init_alt_var(int *i, int *count1, int *count2, int *alt_tmp);
 t_dot				new_line(int y, int x);
 t_dot				new_dot(t_env *e, int y, int x);

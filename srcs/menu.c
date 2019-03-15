@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:58:49 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/15 18:44:02 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/15 19:24:40 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,50 @@ void		add_side_menu(t_env *e)
 			WIN_Y - 45, WHITE, "i -> iso projection\n");
 }
 
+int			color(int color_place)
+{
+	if (color_place == 0)
+		return (PINK);
+	else if (color_place == 25)
+		return (GREEN);
+	else if (color_place == 50)
+		return (BLUE);
+	else if (color_place == 75)
+		return (RED);
+	else if (color_place == 100)
+		return (YELLOW);
+	else if (color_place == 125)
+		return (WHITE);
+	return (BLACK);
+}
+
+void		add_color_choice(t_env *e, int code)
+{
+	int		x;
+	int		y;
+	int		tmp_x;
+	int		tmp_y;
+	int		color_place;
+
+	color_place = 0;
+	while (color_place <= 125)
+	{
+		x = WIN_X / 2.75 + 10 + color_place;
+		y = WIN_Y / 2 - (code ? 75 : 125);
+		tmp_y = y - 10;
+		while (++tmp_y < y + 10)
+		{
+			tmp_x = x - 10;
+			mlx_pixel_put(e->mlx.mlx_ptr, e->mlx.win_ptr, tmp_x,
+					tmp_y, color(color_place));
+			while (++tmp_x < x + 10)
+				mlx_pixel_put(e->mlx.mlx_ptr, e->mlx.win_ptr, tmp_x,
+						tmp_y, color(color_place));
+		}
+		color_place += 25;
+	}
+}
+
 void		menu_window(t_env *e)
 {
 	clean_window(e);
@@ -35,4 +79,10 @@ void		menu_window(t_env *e)
 			WHITE, "RIGHT CLICK -> erase mode\n");
 	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, WIN_X / 2.75, WIN_Y / 2 - 15,
 			WHITE, "r           -> go back to map\n");
+	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, WIN_X / 2.75,
+			WIN_Y / 2 - 110, WHITE, "Click to choose color 2\n");
+	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, WIN_X / 2.75,
+			WIN_Y / 2 - 160, WHITE, "Click to choose color 1\n");
+	add_color_choice(e, 0);
+	add_color_choice(e, 1);
 }
