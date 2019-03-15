@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 17:58:19 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/12 19:23:56 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/15 17:07:39 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@
 # define BLACK 0x000000
 # define YELLOW 0xFFD300
 # define WHITE 0xFFFFFF
-
+# define WIN_X 1500
+# define WIN_Y 1125
 
 typedef struct		s_map
 {
@@ -59,9 +60,12 @@ typedef struct		s_camera
 	int				medium_alt;
 	int				altitude;
 	double			zoom;
-	double			rot_x;
-	double			rot_y;
-	double			rot_z;
+	int				zoom_x;
+	int				zoom_y;
+	int				move_x;
+	int				move_y;
+	int				center_x;
+	int				center_y;
 }					t_camera;
 
 typedef struct		s_env
@@ -70,7 +74,11 @@ typedef struct		s_env
 	struct s_mlx	mlx;
 	struct s_camera	camera;
 	int				**map_tab;
-	int				key_34;
+	int				menu_mode;
+	int				left_click;
+	int				left_click_x;
+	int				left_click_y;
+	int				iso_key;
 	int				key_36;
 	double			map_size_y;
 	double			map_size_x;
@@ -81,26 +89,20 @@ typedef struct		s_env
 	int				mouse_released;
 }					t_env;
 
-//PROJECT.C => 5
-void				rotate_x(t_env *e, int *y, int *z);
-void				rotate_y(t_env *e, int *x, int *z);
-void				rotate_z(t_env *e, int *x, int *y);
-void				iso(int *x, int *y, int z);
-t_dot				projection(t_env *e, t_dot dot);
-
 //CLEAN.C => 3
 void				restart(t_env *e);
 void				erase_zone(t_env *e, int x, int y);
 void				clean_window(t_env *e);
 
 //MENU.C => 1
+void				add_side_menu(t_env *e);
 void				menu_window(t_env *e);
 
 //HOOKS.C => 3
 int					key_hook(int key, t_env *e);
 int					mouse_hook(int key, int x, int y, t_env *e);
 int					motion_hook(int x, int y, t_env *e);
-int					test_hook(int key, int x, int y, t_env *e);
+int					release_hook(int key, int x, int y, t_env *e);
 int					holding_key(int key, t_env *e);
 
 //DRAW.C => 5
@@ -111,17 +113,14 @@ void				draw_line(t_env *e, t_dot dot1, t_dot dot2, int color);
 void				draw_map(t_env *e);
 
 //INIT.C => 3
-void				init(t_env *e);
+void				compute_center(t_env *e);
 t_dot				new_line(int y, int x);
 t_dot				new_dot(t_env *e, int y, int x);
+void				init(t_env *e);
 
 //FREE.C => 2
 void				free_tab(t_env *e);
 void				free_env(t_env *e, void *to_free, int to_exit);
-
-//PRINT.C => 2
-void				print_map(t_env *e);
-void				print_tab(t_env *e);
 
 //SORT_INPUT.C => 8
 int					check_number(t_env *e, char *line);

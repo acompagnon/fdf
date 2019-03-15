@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 18:03:45 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/12 19:23:54 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/15 15:16:40 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ void			find_medium_altitude(t_env *e)
 
 void			find_zoom(t_env *e)
 {
-	e->camera.zoom = (100 / e->map_size_y) * 3;
+	e->camera.zoom = (WIN_X / 10 / e->map_size_y) * 3.5;
 }
 
 void			sort_input(t_env *e)

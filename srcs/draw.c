@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:59:55 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/12 19:19:31 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/15 16:07:01 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		put_pixel(t_env *e, int x, int y, int color)
 {
 	int		i;
 
-	if (x > 0 && y > 0 && y < 750 && x < 1000)
+	if (x > 0 && y > 0 && y < WIN_Y && x < WIN_X)
 	{
 		i = (x * e->mlx.bpp / 8) + (y * e->mlx.s_l);
 		e->mlx.data[i++] = color & 0xff;
@@ -99,19 +99,12 @@ void		draw_map(t_env *e)
 		while (++j < e->map_size_x)
 		{
 			if (i + 1 < e->map_size_y)
-				draw_line(e, projection(e, new_dot(e, i, j)),
-						projection(e, new_dot(e, i + 1, j)), BLUE);
+				draw_line(e, new_dot(e, i, j), new_dot(e, i + 1, j), BLUE);
 			if (j + 1 < e->map_size_x)
-				draw_line(e, projection(e, new_dot(e, i, j)),
-						projection(e, new_dot(e, i, j + 1)), YELLOW);
+				draw_line(e, new_dot(e, i, j), new_dot(e, i, j + 1), YELLOW);
 		}
 	}
 	mlx_put_image_to_window(e->mlx.mlx_ptr, e->mlx.win_ptr,
 			e->mlx.img_ptr, 0, 0);
-	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, 10, 10, WHITE,
-			"Press o to see options\n");
-	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, 700, 690, WHITE,
-			"p -> parallel projection\n");
-	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, 700, 705, WHITE,
-			"i -> iso projection\n");
+	add_side_menu(e);
 }
