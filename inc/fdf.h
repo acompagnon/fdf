@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 17:58:19 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/15 17:51:11 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/15 18:43:36 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,6 @@
 # include "mlx.h"
 # include <stdlib.h>
 # include <math.h>
-
-/* ************************************************************************** */
-# include <stdio.h>
-/* ************************************************************************** */
 # define PINK 0xFC0FC0
 # define GREEN 0x009905
 # define BLUE 0x3399ff
@@ -68,25 +64,28 @@ typedef struct		s_camera
 	int				center_y;
 }					t_camera;
 
+typedef struct		s_key
+{
+	int				left_click;
+	int				left_click_x;
+	int				left_click_y;
+	int				iso;
+	int				enter;
+	int				mouse_released;
+}					t_key;
+
 typedef struct		s_env
 {
 	struct s_map	*map;
 	struct s_mlx	mlx;
 	struct s_camera	camera;
+	struct s_key	key;
 	int				**map_tab;
 	int				menu_mode;
-	int				left_click;
-	int				left_click_x;
-	int				left_click_y;
-	int				iso_key;
-	int				key_36;
 	double			map_size_y;
 	double			map_size_x;
 	double			dx;
 	double			dy;
-	double			origin_x;
-	double			origin_y;
-	int				mouse_released;
 }					t_env;
 
 //CLEAN.C => 4
@@ -113,8 +112,7 @@ void				draw_after(t_env *e, t_dot dot1, t_dot dot2, int color);
 void				draw_line(t_env *e, t_dot dot1, t_dot dot2, int color);
 void				draw_map(t_env *e);
 
-//CAMERA.C => 5
-void				compute_center(t_env *e);
+//CAMERA.C => 4
 void				camera_moves(t_env *e, int *x, int *y);
 void				take_best_alt(t_env *e, int *count1, int *count2, int alt_tmp);
 void				find_medium_altitude(t_env *e);

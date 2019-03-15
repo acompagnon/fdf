@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean.c                                            :+:      :+:    :+:   */
+/*   move_restart.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/11 18:08:27 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/15 17:44:32 by acompagn         ###   ########.fr       */
+/*   Created: 2019/03/15 18:40:40 by acompagn          #+#    #+#             */
+/*   Updated: 2019/03/15 18:44:09 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,14 @@ void		move_image_to(t_env *e, int x, int y)
 
 void		restart(t_env *e)
 {
-	if (e->key_36)
+	if (e->key.enter)
 	{
-		e->origin_x = -1;
-		e->origin_y = -1;
 		find_zoom(e);
 		e->camera.altitude = 0;
 		e->camera.move_x = 0;
 		e->camera.move_y = 0;
 	}
-	e->key_36 = 1;
+	e->key.enter = 1;
 	draw_map(e);
 }
 

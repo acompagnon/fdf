@@ -6,20 +6,11 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 17:12:45 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/15 17:42:12 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/15 18:44:25 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void		compute_center(t_env *e)
-{
-	t_dot	center;
-
-	center = new_dot(e, e->map_size_y / 2, e->map_size_x / 2);
-	e->camera.center_x = center.x;
-	e->camera.center_y = center.y;
-}
 
 void		camera_moves(t_env *e, int *x, int *y)
 {
@@ -30,8 +21,8 @@ void		camera_moves(t_env *e, int *x, int *y)
 	}
 	if (e->camera.move_x && e->camera.move_y)
 	{
-		*x += e->camera.center_x + e->camera.move_x - e->left_click_x;
-		*y += e->camera.center_y + e->camera.move_y - e->left_click_y;
+		*x += e->camera.move_x - e->key.left_click_x;
+		*y += e->camera.move_y - e->key.left_click_y;
 	}
 }
 
