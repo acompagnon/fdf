@@ -6,11 +6,29 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 11:59:31 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/02 15:20:07 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/15 17:14:54 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+int				malloc_tab(t_env *e)
+{
+	int		i;
+
+	i = -1;
+	if (!(e->map_tab = (int **)ft_memalloc(sizeof(int *) * e->map_size_y)))
+		return (0);
+	while (++i < e->map_size_y)
+		if (!(e->map_tab[i] = (int *)ft_memalloc(sizeof(int) * e->map_size_x)))
+		{
+			while (i--)
+				free(e->map_tab[i]);
+			free(e->map_tab);
+			return (0);
+		}
+	return (1);
+}
 
 void			free_tab(t_env *e)
 {

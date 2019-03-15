@@ -6,7 +6,7 @@
 #    By: acompagn <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 17:56:14 by acompagn          #+#    #+#              #
-#    Updated: 2019/03/15 14:43:07 by acompagn         ###   ########.fr        #
+#    Updated: 2019/03/15 17:44:59 by acompagn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,12 +15,13 @@ NAME = fdf
 DIR_SRCS =	srcs
 SRCS = 		main.c \
 	   		sort_input.c \
-			free.c \
+			malloc_free.c \
 			init.c \
 			hooks.c \
 			draw.c \
 			menu.c \
-			clean.c \
+			move_restart.c \
+			camera.c \
 
 FDF_SRCS = $(patsubst %,$(DIR_SRCS)/%,$(SRCS))
 

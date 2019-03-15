@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 17:58:19 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/15 17:07:39 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/15 17:51:11 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ typedef struct		s_env
 	int				mouse_released;
 }					t_env;
 
-//CLEAN.C => 3
+//CLEAN.C => 4
+void				move_image_to(t_env *e, int x, int y);
 void				restart(t_env *e);
 void				erase_zone(t_env *e, int x, int y);
 void				clean_window(t_env *e);
@@ -112,24 +113,29 @@ void				draw_after(t_env *e, t_dot dot1, t_dot dot2, int color);
 void				draw_line(t_env *e, t_dot dot1, t_dot dot2, int color);
 void				draw_map(t_env *e);
 
-//INIT.C => 3
+//CAMERA.C => 5
 void				compute_center(t_env *e);
+void				camera_moves(t_env *e, int *x, int *y);
+void				take_best_alt(t_env *e, int *count1, int *count2, int alt_tmp);
+void				find_medium_altitude(t_env *e);
+void				find_zoom(t_env *e);
+
+//INIT.C => 4
+void				init_alt_var(int *i, int *count1, int *count2, int *alt_tmp);
 t_dot				new_line(int y, int x);
 t_dot				new_dot(t_env *e, int y, int x);
 void				init(t_env *e);
 
-//FREE.C => 2
+//MALLOC_FREE.C => 3
+int					malloc_tab(t_env *e);
 void				free_tab(t_env *e);
 void				free_env(t_env *e, void *to_free, int to_exit);
 
-//SORT_INPUT.C => 8
+//SORT_INPUT.C => 5
 int					check_number(t_env *e, char *line);
-int					malloc_tab(t_env *e);
-void				fill_tab(t_env *e);
+void				fill_tab(t_env *e, t_map *ptr);
 double				check_line(char *line);
 int					save_line(t_env *e, char *line);
-void				find_medium_altitude(t_env *e);
-void				find_zoom(t_env *e);
 void				sort_input(t_env *e);
 
 #endif

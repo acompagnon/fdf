@@ -6,11 +6,18 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:08:27 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/15 17:07:37 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/15 17:44:32 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void		move_image_to(t_env *e, int x, int y)
+{
+	e->camera.move_x = x;
+	e->camera.move_y = y;
+	draw_map(e);
+}
 
 void		restart(t_env *e)
 {

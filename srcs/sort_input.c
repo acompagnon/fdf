@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 18:03:45 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/15 15:16:40 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/15 17:51:07 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,32 +34,12 @@ int				check_number(t_env *e, char *line)
 	return (nb * sign);
 }
 
-int				malloc_tab(t_env *e)
+void			fill_tab(t_env *e, t_map *ptr)
 {
-	int		i;
-
-	i = -1;
-	if (!(e->map_tab = (int **)ft_memalloc(sizeof(int *) * e->map_size_y)))
-		return (0);
-	while (++i < e->map_size_y)
-		if (!(e->map_tab[i] = (int *)ft_memalloc(sizeof(int) * e->map_size_x)))
-		{
-			while (i--)
-				free(e->map_tab[i]);
-			free(e->map_tab);
-			return (0);
-		}
-	return (1);
-}
-
-void			fill_tab(t_env *e)
-{
-	t_map	*ptr;
 	int		i;
 	int		y;
 	int		x;
 
-	ptr = e->map;
 	y = 0;
 	while (ptr)
 	{
@@ -130,49 +110,11 @@ int				save_line(t_env *e, char *line)
 	return (1);
 }
 
-void			find_medium_altitude(t_env *e)
-{
-	int		i;
-	int		j;
-	int		count1;
-	int		count2;
-	int		alt_tmp;
-
-	i = -1;
-	count1 = 0;
-	count2 = 0;
-	alt_tmp = 0;
-	while (++i < e->map_size_y)
-	{
-		j = -1;
-		while (++j < e->map_size_x)
-		{
-			if (count2 > count1)
-			{
-				e->camera.medium_alt = alt_tmp;
-				count1 = count2;
-				count2 = 0;
-			}
-			if (!e->camera.medium_alt || e->map_tab[i][j] == e->camera.medium_alt)
-			{
-				e->camera.medium_alt = e->map_tab[i][j];
-				count1++;
-			}
-			else if (!alt_tmp || e->map_tab[i][j] == alt_tmp)
-				count2++;
-		}
-	}
-}
-
-void			find_zoom(t_env *e)
-{
-	e->camera.zoom = (WIN_X / 10 / e->map_size_y) * 3.5;
-}
-
 void			sort_input(t_env *e)
 {
 	char	*line;
 	double	len;
+	t_map	*ptr;
 
 	while (get_next_line(0, &line) > 0)
 	{
@@ -189,7 +131,8 @@ void			sort_input(t_env *e)
 		free(line);
 	}
 	(!(malloc_tab(e))) ? free_env(e, NULL, 1) : 1;
-	fill_tab(e);
+	ptr = e->map;
+	fill_tab(e, ptr);
 	find_medium_altitude(e);
 	find_zoom(e);
 }

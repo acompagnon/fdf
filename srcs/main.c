@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 17:57:55 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/15 15:16:12 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/15 17:47:34 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int				main(void)
 	t_env e;
 
 	if (!WIN_X || !WIN_Y)
-	   return (0);
+		return (0);
 	init(&e);
 	sort_input(&e);
 	if (!(e.mlx.mlx_ptr = mlx_init()))

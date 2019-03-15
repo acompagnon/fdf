@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 15:03:55 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/15 17:07:41 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/15 17:47:16 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,13 @@ int			key_hook(int key, t_env *e)
 	return (0);
 }
 
-void		move_image_to(t_env *e, int x, int y)
-{
-	e->camera.move_x = x;
-	e->camera.move_y = y;
-	draw_map(e);
-}
-
 int			mouse_hook(int key, int x, int y, t_env *e)
 {
 	if (!e->menu_mode && (key == 2 || key == 1 || e->mouse_released))
 	{
 		e->left_click = (key == 2) ? 0 : 1;
-		if (e->left_click)
-		{
-			e->left_click_x = x;
-			e->left_click_y = y;
-		}
+		(e->left_click) ? e->left_click_x = x : 1;
+		(e->left_click) ? e->left_click_y = y : 1;
 		e->mouse_released = 1;
 	}
 	if (!e->menu_mode && e->key_36)
@@ -96,7 +86,7 @@ int			motion_hook(int x, int y, t_env *e)
 	return (0);
 }
 
-int			release_hook(int key, int x, int y,  t_env *e)
+int			release_hook(int key, int x, int y, t_env *e)
 {
 	e->mouse_released = 0;
 	(void)key;
