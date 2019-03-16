@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 18:03:45 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/16 13:44:02 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/16 19:32:13 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ void			sort_input(t_env *e)
 	double	len;
 	t_map	*ptr;
 
+	if (get_next_line(0, &line) <= 0)
+		free_env(e, line, 1);
 	while (get_next_line(0, &line) > 0)
 	{
 		if ((len = check_line(line)))

@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 17:58:19 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/16 15:30:03 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/16 20:03:49 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,15 @@ typedef struct		s_env
 	double			dx;
 	double			dy;
 	double			rot_x;
+	double			rot_y;
+	double			rot_z;
+	int				base_x;
+	int				base_y;
 }					t_env;
 
+void				rotate_x(t_env *e, int *y, int *z);
+void				rotate_y(t_env *e, int *x, int *z);
+void				rotate_z(t_env *e, int *x, int *y);
 void				move_image_to(t_env *e, int x, int y);
 void				restart(t_env *e);
 void				erase_zone(t_env *e, int x, int y);

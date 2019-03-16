@@ -6,7 +6,7 @@
 #    By: acompagn <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 17:56:14 by acompagn          #+#    #+#              #
-#    Updated: 2019/03/16 16:18:03 by acompagn         ###   ########.fr        #
+#    Updated: 2019/03/16 17:29:19 by acompagn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS = 		main.c \
 			menu.c \
 			move_restart.c \
 			camera.c \
+			rotate.c \
 
 FDF_SRCS = $(patsubst %,$(DIR_SRCS)/%,$(SRCS))
 

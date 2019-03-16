@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 15:03:55 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/16 15:45:22 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/16 20:01:37 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,9 @@ int			holding_key(int key, t_env *e)
 	{
 		(key == 125) ? e->camera.altitude-- : 1;
 		(key == 126) ? e->camera.altitude++ : 1;
-		(key == 123) ? e->rot_x -= 0.1 : 1;
-		(key == 124) ? e->rot_x += 0.1 : 1;
+		(key == 7) ? e->rot_x += 0.1 : 1;
+		(key == 6) ? e->rot_z += 0.1 : 1;
+		(key == 16) ? e->rot_y += 0.1 : 1;
 		draw_map(e);
 	}
 	return (0);

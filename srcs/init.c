@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 12:03:08 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/16 16:47:43 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/16 20:03:45 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,23 @@ t_dot		new_dot(t_env *e, int y, int x)
 	int		tmp_x;
 	int		tmp_y;
 
-	dot.x = x * e->camera.zoom + ((e->key.iso) ? WIN_Y / 2 : WIN_X * 1.05);
-	dot.y = y * e->camera.zoom + ((e->key.iso) ? 0 : WIN_X / 1.70);
+	dot.x = (x - 0.5 * e->map_size_x) * e->camera.zoom;
+	dot.y = (y - 0.5 * e->map_size_y) * e->camera.zoom;
 	camera_moves(e, &dot.x, &dot.y);
 	tmp_x = dot.x;
 	tmp_y = dot.y;
 	if ((dot.z = e->map_tab[y][x]) && dot.z != e->camera.medium_alt)
 		dot.z += e->camera.altitude * e->map_tab[y][x];
 	dot.x = (tmp_x - tmp_y) * cos(0.523599);
-	if (!e->key.iso)
-		dot.y = -dot.z + tmp_y * sin(0.523599);
-	else
-		dot.y = -dot.z + (tmp_x + tmp_y) * sin(0.523599);
+	dot.y = -dot.z + ((!e->key.iso) ? tmp_y : tmp_x + tmp_y) * sin(0.523599);
+	rotate_x(e, &dot.y, &dot.z);
+	rotate_y(e, &dot.x, &dot.z);
+	rotate_z(e, &dot.x, &dot.y);
+	if (!e->camera.move_x && !e->camera.move_y)
+	{
+		dot.x += WIN_X / 2;
+		dot.y += WIN_Y / 2;
+	}
 	return (dot);
 }
 

@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 17:12:45 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/16 14:46:07 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/16 20:04:20 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void		find_medium_altitude(t_env *e)
 		j = -1;
 		while (++j < e->map_size_x)
 		{
-			if (count2 > count1)
+			if (count2 < count1)
 				take_best_alt(e, &count1, &count2, alt_tmp);
 			if (!e->camera.medium_alt
 					|| e->map_tab[i][j] == e->camera.medium_alt)
@@ -63,5 +63,8 @@ void		find_medium_altitude(t_env *e)
 
 void		find_zoom(t_env *e)
 {
-	e->camera.zoom = (WIN_X / 10 / e->map_size_y) * 3.5;
+	e->camera.zoom = 1;
+	while (e->camera.zoom * e->map_size_y < WIN_Y / 2
+			&& e->camera.zoom * e->map_size_x < WIN_X / 1.5)
+		e->camera.zoom++;
 }
