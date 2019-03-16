@@ -6,13 +6,13 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:59:55 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/15 19:17:59 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/16 14:54:11 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void		put_pixel(t_env *e, int x, int y, int color)
+static void	put_pixel(t_env *e, int x, int y, int color)
 {
 	int		i;
 
@@ -25,7 +25,7 @@ void		put_pixel(t_env *e, int x, int y, int color)
 	}
 }
 
-void		draw_before(t_env *e, t_dot dot1, t_dot dot2, int color)
+static void	draw_before(t_env *e, t_dot dot1, t_dot dot2, int color)
 {
 	int		i;
 	int		cumul;
@@ -50,7 +50,7 @@ void		draw_before(t_env *e, t_dot dot1, t_dot dot2, int color)
 	}
 }
 
-void		draw_after(t_env *e, t_dot dot1, t_dot dot2, int color)
+static void	draw_after(t_env *e, t_dot dot1, t_dot dot2, int color)
 {
 	int		i;
 	int		cumul;
@@ -75,7 +75,7 @@ void		draw_after(t_env *e, t_dot dot1, t_dot dot2, int color)
 	}
 }
 
-void		draw_line(t_env *e, t_dot dot1, t_dot dot2, int color)
+static void	draw_line(t_env *e, t_dot dot1, t_dot dot2, int color)
 {
 	e->dx = abs_double(dot1.x - dot2.x);
 	e->dy = abs_double(dot1.y - dot2.y);

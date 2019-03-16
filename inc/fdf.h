@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 17:58:19 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/15 19:24:38 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/16 15:30:03 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ typedef struct		s_camera
 	int				zoom_y;
 	int				move_x;
 	int				move_y;
-	int				center_x;
-	int				center_y;
 }					t_camera;
 
 typedef struct		s_key
@@ -88,57 +86,32 @@ typedef struct		s_env
 	double			map_size_x;
 	double			dx;
 	double			dy;
+	double			rot_x;
 }					t_env;
 
-//CLEAN.C => 4
 void				move_image_to(t_env *e, int x, int y);
 void				restart(t_env *e);
 void				erase_zone(t_env *e, int x, int y);
 void				clean_window(t_env *e);
-
-//MENU.C => 1
-int					color(int color_place);
-void				add_color_choice(t_env *e, int code);
 void				add_side_menu(t_env *e);
+int					color(int color_place);
 void				menu_window(t_env *e);
-
-//HOOKS.C => 3
 int					key_hook(int key, t_env *e);
 int					mouse_hook(int key, int x, int y, t_env *e);
+int					holding_key(int key, t_env *e);
 int					motion_hook(int x, int y, t_env *e);
 int					release_hook(int key, int x, int y, t_env *e);
-int					holding_key(int key, t_env *e);
-
-//DRAW.C => 5
-void				put_pixel(t_env *e, int x, int y, int color);
-void				draw_before(t_env *e, t_dot dot1, t_dot dot2, int color);
-void				draw_after(t_env *e, t_dot dot1, t_dot dot2, int color);
-void				draw_line(t_env *e, t_dot dot1, t_dot dot2, int color);
 void				draw_map(t_env *e);
-
-//CAMERA.C => 4
 void				camera_moves(t_env *e, int *x, int *y);
-void				take_best_alt(t_env *e, int *count1, int *count2, int alt_tmp);
 void				find_medium_altitude(t_env *e);
 void				find_zoom(t_env *e);
-
-//INIT.C => 4
 void				choose_color(t_env *e, int x, int y);
-void				init_alt_var(int *i, int *count1, int *count2, int *alt_tmp);
-t_dot				new_line(int y, int x);
+void				init_alt_var(int *i, int *count1, int *count2,
+		int *alt_tmp);
 t_dot				new_dot(t_env *e, int y, int x);
-void				init(t_env *e);
-
-//MALLOC_FREE.C => 3
+void				init_structs(t_env *e);
 int					malloc_tab(t_env *e);
-void				free_tab(t_env *e);
 void				free_env(t_env *e, void *to_free, int to_exit);
-
-//SORT_INPUT.C => 5
-int					check_number(t_env *e, char *line);
-void				fill_tab(t_env *e, t_map *ptr);
-double				check_line(char *line);
-int					save_line(t_env *e, char *line);
 void				sort_input(t_env *e);
 
 #endif

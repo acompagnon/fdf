@@ -6,13 +6,13 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 18:03:45 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/15 18:43:49 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/16 13:44:02 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int				check_number(t_env *e, char *line)
+static int		check_number(t_env *e, char *line)
 {
 	int		i;
 	int		nb;
@@ -34,7 +34,7 @@ int				check_number(t_env *e, char *line)
 	return (nb * sign);
 }
 
-void			fill_tab(t_env *e, t_map *ptr)
+static void		fill_tab(t_env *e, t_map *ptr)
 {
 	int		i;
 	int		y;
@@ -62,7 +62,7 @@ void			fill_tab(t_env *e, t_map *ptr)
 	}
 }
 
-double			check_line(char *line)
+static double	check_line(char *line)
 {
 	int		i;
 	double	nb;
@@ -84,7 +84,7 @@ double			check_line(char *line)
 	return (nb);
 }
 
-int				save_line(t_env *e, char *line)
+static int		save_line(t_env *e, char *line)
 {
 	t_map	*new;
 	t_map	*ptr;

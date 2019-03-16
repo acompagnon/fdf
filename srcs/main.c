@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 17:57:55 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/15 18:44:18 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/16 15:07:20 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int				main(void)
 
 	if (!WIN_X || !WIN_Y)
 		return (0);
-	init(&e);
+	init_structs(&e);
 	sort_input(&e);
 	if (!(e.mlx.mlx_ptr = mlx_init()))
 		free_env(&e, NULL, 1);

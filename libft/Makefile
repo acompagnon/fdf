@@ -6,7 +6,7 @@
 #    By: acompagn <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/09 16:27:08 by acompagn          #+#    #+#              #
-#    Updated: 2019/03/11 18:54:41 by acompagn         ###   ########.fr        #
+#    Updated: 2019/03/16 12:18:37 by acompagn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,7 +96,7 @@ all: $(NAME)
 
 $(NAME): $(OBJECTS)
 		@ar rc $(NAME) $(OBJECTS)
-		@echo "$(GREEN)[OK]$(END) Creation de libft.a"
+		@printf "\e[2K\e[94m[OK]\e[0m Creation de libft.a\n"
 
 %.o: %.c $(HEADERS)
 		@gcc $(CFLAGS) -I $(HEADERS) -o $@ -c $<

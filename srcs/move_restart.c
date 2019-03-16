@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 18:40:40 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/15 19:15:12 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/16 13:43:57 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void		restart(t_env *e)
 		e->camera.altitude = 0;
 		e->camera.move_x = 0;
 		e->camera.move_y = 0;
+		e->camera.zoom_x = 0;
+		e->camera.zoom_y = 0;
 	}
 	e->key.enter = 1;
 	draw_map(e);

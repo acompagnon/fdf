@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 18:43:56 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/15 18:43:58 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/16 13:43:30 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int				malloc_tab(t_env *e)
 	return (1);
 }
 
-void			free_tab(t_env *e)
+static void		free_tab(t_env *e)
 {
 	int		i;
 

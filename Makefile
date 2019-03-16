@@ -6,7 +6,7 @@
 #    By: acompagn <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 17:56:14 by acompagn          #+#    #+#              #
-#    Updated: 2019/03/15 17:44:59 by acompagn         ###   ########.fr        #
+#    Updated: 2019/03/16 14:16:59 by acompagn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ DIR_OBJ = obj
 FDF_OBJ = $(patsubst %,$(DIR_OBJ)/%,$(SRCS:.c=.o))
 LIBFT = libft/libft.a
 
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g3
+CFLAGS = -Wall -Werror -Wextra -g3
 
 RED = \033[31m
 GREEN = \033[32m
@@ -40,7 +40,7 @@ END= \033[0m
 
 .PHONY: clean fclean all re libft
 
-all: $(NAME)
+all: $(LIBFT) $(NAME)
 
 $(LIBFT):
 	@make -C libft
@@ -48,14 +48,13 @@ $(LIBFT):
 $(DIR_OBJ):
 	@mkdir -p $@
 
-$(FDF_OBJ): obj%.o : $(DIR_SRCS)%.c
+$(FDF_OBJ): obj%.o : $(DIR_SRCS)%.c inc/fdf.h
 	@gcc $(CFLAGS) -c $< -o $@ -Iinc -Ilibft
 	@printf "\e[2K \e[32m[CC]\e[0m %-15s\r" "$<"
 
-$(NAME): $(DIR_OBJ) $(FDF_OBJ) $(LIBFT)
+$(NAME): $(DIR_OBJ) $(FDF_OBJ)
 	@gcc $(CFLAGS) $(FDF_OBJ) -o $@  -I libft -L libft/ -lft -lmlx -framework OpenGL -framework Appkit
-	@printf "\033[32m[PRG]\e[0m $(NAME) done\n"
-
+	@printf "\n\e[2k\e[32m[PRG]\e[0m $(NAME) done\n"
 
 clean:
 	@/bin/rm -rf $(DIR_OBJ)

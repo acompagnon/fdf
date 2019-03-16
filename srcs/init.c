@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 12:03:08 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/15 19:24:32 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/16 15:30:07 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void		choose_color(t_env *e, int x, int y)
 	base_y = WIN_Y / 2;
 	base_x = WIN_X / 2.75 + 10;
 	color_place = 0;
-	printf("x = %d | y = %d\n", x, y);
 	while (color_place <= 125)
 	{
 		if (y >= base_y - 75 - 10 && y <= base_y - 75 + 10
@@ -48,13 +47,13 @@ t_dot		new_dot(t_env *e, int y, int x)
 	int		tmp_x;
 	int		tmp_y;
 
-	dot.x = x * e->camera.zoom + ((e->key.iso) ? WIN_Y / 1.85 : WIN_X * 1.05);
-	dot.y = y * e->camera.zoom - ((e->key.iso) ? WIN_Y / 10 : -(WIN_X / 1.70));
+	dot.x = x * e->camera.zoom + ((e->key.iso) ? WIN_Y / 2 : WIN_X * 1.05);
+	dot.y = y * e->camera.zoom + ((e->key.iso) ? 0 : WIN_X / 1.70);
 	camera_moves(e, &dot.x, &dot.y);
 	tmp_x = dot.x;
 	tmp_y = dot.y;
 	if ((dot.z = e->map_tab[y][x]) && dot.z != e->camera.medium_alt)
-		dot.z += e->camera.altitude + e->camera.zoom;
+		dot.z += e->camera.altitude * e->map_tab[y][x] + e->camera.zoom;
 	dot.x = (tmp_x - tmp_y) * cos(0.523599);
 	if (!e->key.iso)
 		dot.y = -dot.z + tmp_y * sin(0.523599);
@@ -63,12 +62,13 @@ t_dot		new_dot(t_env *e, int y, int x)
 	return (dot);
 }
 
-void		init(t_env *e)
+void		init_structs(t_env *e)
 {
 	e->map = NULL;
 	e->map_tab = NULL;
 	e->map_size_y = 0;
 	e->map_size_x = 0;
+	e->rot_x = 0;
 	e->color1 = BLUE;
 	e->color2 = YELLOW;
 	e->key.iso = 1;

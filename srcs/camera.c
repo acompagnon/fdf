@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 17:12:45 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/15 18:44:25 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/16 14:46:07 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void		camera_moves(t_env *e, int *x, int *y)
 	}
 }
 
-void		take_best_alt(t_env *e, int *count1, int *count2, int alt_tmp)
+static void	take_best_alt(t_env *e, int *count1, int *count2, int alt_tmp)
 {
 	e->camera.medium_alt = alt_tmp;
 	*count1 = *count2;

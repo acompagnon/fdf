@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:58:49 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/15 19:24:40 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/16 15:21:33 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,17 @@ void		add_side_menu(t_env *e)
 	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, WIN_X - 270,
 			WIN_Y - 60, WHITE, "p -> parallel projection\n");
 	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, WIN_X - 270,
-			WIN_Y - 45, WHITE, "i -> iso projection\n");
+			WIN_Y - 35, WHITE, "i -> iso projection\n");
+	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, 10,
+			WIN_Y - 35, WHITE, "Move image with left click\n");
+	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, 10,
+			WIN_Y - 60, WHITE, "Erase with right click\n");
+	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, WIN_X - 280,
+			10, WHITE, "up arrow   -> more altitude\n");
+	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, WIN_X - 280,
+			25, WHITE, "down arrow -> less altitude\n");
+	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, WIN_X - 280,
+			40, WHITE, "scroll     -> zoom in / out\n");
 }
 
 int			color(int color_place)
@@ -39,7 +49,7 @@ int			color(int color_place)
 	return (BLACK);
 }
 
-void		add_color_choice(t_env *e, int code)
+static void	add_color_choice(t_env *e, int code)
 {
 	int		x;
 	int		y;

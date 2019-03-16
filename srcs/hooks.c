@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 15:03:55 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/15 19:24:34 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/16 15:30:05 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int			key_hook(int key, t_env *e)
 		menu_window(e);
 		e->menu_mode = 1;
 	}
-	else if ((key == 36 && !e->menu_mode) || key == 15)
+	else if ((key == 36 && !e->menu_mode) || (key == 15 && e->menu_mode))
 	{
 		e->menu_mode = 0;
 		restart(e);
@@ -67,6 +67,8 @@ int			holding_key(int key, t_env *e)
 	{
 		(key == 125) ? e->camera.altitude-- : 1;
 		(key == 126) ? e->camera.altitude++ : 1;
+		(key == 123) ? e->rot_x += 0.1 : 1;
+		(key == 124) ? e->rot_x -= 0.1 : 1;
 		draw_map(e);
 	}
 	return (0);
