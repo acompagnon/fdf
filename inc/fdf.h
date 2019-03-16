@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 17:58:19 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/16 20:03:49 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/16 20:12:41 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct		s_key
 	int				left_click;
 	int				left_click_x;
 	int				left_click_y;
+	int				space;
 	int				iso;
 	int				enter;
 	int				mouse_released;
@@ -82,6 +83,7 @@ typedef struct		s_env
 	int				color1;
 	int				color2;
 	int				menu_mode;
+	int				alt_color_mode;
 	double			map_size_y;
 	double			map_size_x;
 	double			dx;

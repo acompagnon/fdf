@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:58:49 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/16 15:45:24 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/16 20:17:10 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void		add_side_menu(t_env *e)
 			WIN_Y - 35, WHITE, "Move image with left click\n");
 	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, 10,
 			WIN_Y - 60, WHITE, "Erase with right click\n");
+	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, 10,
+			WIN_Y - 85, WHITE, "Space to change color mode\n");
 	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, WIN_X - 280,
 			10, WHITE, "up arrow   -> more altitude\n");
 	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, WIN_X - 280,

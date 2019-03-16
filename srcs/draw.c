@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:59:55 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/16 20:04:31 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/16 20:17:12 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,13 @@ static void	draw_line(t_env *e, t_dot dot1, t_dot dot2, int color)
 {
 	e->dx = abs_double(dot1.x - dot2.x);
 	e->dy = abs_double(dot1.y - dot2.y);
+	if (e->key.space)
+	{
+		if (dot1.z != e->camera.medium_alt || dot2.z != e->camera.medium_alt)
+			color = e->color1;
+		else
+			color = e->color2;
+	}
 	put_pixel(e, dot2.x, dot2.y, color);
 	if (e->dx > e->dy)
 		draw_before(e, dot1, dot2, color);

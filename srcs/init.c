@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 12:03:08 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/16 20:03:45 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/16 20:12:47 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,11 @@ void		init_structs(t_env *e)
 	e->map_size_y = 0;
 	e->map_size_x = 0;
 	e->rot_x = 0;
+	e->rot_y = 0;
+	e->rot_z = 0;
 	e->color1 = BLUE;
 	e->color2 = YELLOW;
+	e->key.space = 0;
 	e->key.iso = 1;
 	e->key.enter = 0;
 	e->key.mouse_released = 0;
