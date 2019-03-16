@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 15:03:55 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/16 15:30:05 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/16 15:45:22 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int			holding_key(int key, t_env *e)
 	{
 		(key == 125) ? e->camera.altitude-- : 1;
 		(key == 126) ? e->camera.altitude++ : 1;
-		(key == 123) ? e->rot_x += 0.1 : 1;
-		(key == 124) ? e->rot_x -= 0.1 : 1;
+		(key == 123) ? e->rot_x -= 0.1 : 1;
+		(key == 124) ? e->rot_x += 0.1 : 1;
 		draw_map(e);
 	}
 	return (0);
@@ -76,7 +76,7 @@ int			holding_key(int key, t_env *e)
 
 int			motion_hook(int x, int y, t_env *e)
 {
-	if (!e->menu_mode && e->key.mouse_released)
+	if (e->key.enter && !e->menu_mode && e->key.mouse_released)
 		e->key.left_click ? move_image_to(e, x, y) : erase_zone(e, x, y);
 	return (0);
 }
