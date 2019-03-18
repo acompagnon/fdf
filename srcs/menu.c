@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:58:49 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/16 20:17:10 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/18 12:04:45 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,17 @@ void		menu_window(t_env *e)
 	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, WIN_X / 2.75, WIN_Y / 2 - 30,
 			WHITE, "RIGHT CLICK -> erase mode\n");
 	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, WIN_X / 2.75, WIN_Y / 2 - 15,
-			WHITE, "r           -> go back to map\n");
+			WHITE, "x           -> x_axis rotation\n");
 	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, WIN_X / 2.75,
 			WIN_Y / 2 - 110, WHITE, "Click to choose color 2\n");
 	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, WIN_X / 2.75,
 			WIN_Y / 2 - 160, WHITE, "Click to choose color 1\n");
+	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, WIN_X / 2.75, WIN_Y / 2,
+			WHITE, "y           -> y-axis rotation\n");
+	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, WIN_X / 2.75, WIN_Y / 2 + 15,
+			WHITE, "z           -> z_axis rotation\n");
+	mlx_string_put(e->mlx.mlx_ptr, e->mlx.win_ptr, WIN_X / 2.75, WIN_Y / 2 + 30,
+			WHITE, "r           -> go back to map\n");
 	add_color_choice(e, 0);
 	add_color_choice(e, 1);
 }

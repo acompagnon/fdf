@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 18:03:45 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/16 19:32:13 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/18 14:16:37 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static double	check_line(char *line)
 		if (line[i] && (line[i] == '-' || (line[i] >= '0' && line[i] <= '9')))
 			nb++;
 		while (line[i] && (line[i] == '-'
-				|| (line[i] >= '0' && line[i] <= '9')))
+					|| (line[i] >= '0' && line[i] <= '9')))
 			i++;
 	}
 	return (nb);
@@ -110,15 +110,14 @@ static int		save_line(t_env *e, char *line)
 	return (1);
 }
 
-void			sort_input(t_env *e)
+void			sort_input(t_env *e, int fd)
 {
 	char	*line;
 	double	len;
 	t_map	*ptr;
 
-	if (get_next_line(0, &line) <= 0)
-		free_env(e, line, 1);
-	while (get_next_line(0, &line) > 0)
+	len = 0;
+	while (get_next_line(fd, &line) > 0)
 	{
 		if ((len = check_line(line)))
 		{
@@ -132,7 +131,7 @@ void			sort_input(t_env *e)
 			free_env(e, line, 1);
 		free(line);
 	}
-	(!(malloc_tab(e))) ? free_env(e, NULL, 1) : 1;
+	(!len || !(malloc_tab(e))) ? free_env(e, NULL, 1) : 1;
 	ptr = e->map;
 	fill_tab(e, ptr);
 	find_medium_altitude(e);

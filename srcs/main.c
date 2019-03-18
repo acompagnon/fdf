@@ -6,22 +6,23 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 17:57:55 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/16 16:17:53 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/18 14:34:46 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int				main(void)
+int				main(int argc, char **argv)
 {
-	t_env e;
+	t_env	e;
+	int		fd;
 
-	if (!WIN_X || !WIN_Y)
+	if (!WIN_X || !WIN_Y || argc != 2 || (fd = open(argv[1], O_RDONLY)) == -1)
 		return (0);
 	init_structs(&e);
-	sort_input(&e);
-	if (!(e.mlx.mlx_ptr = mlx_init()))
-		free_env(&e, NULL, 1);
+	sort_input(&e, fd);
+	close(fd);
+	(!(e.mlx.mlx_ptr = mlx_init())) ? free_env(&e, NULL, 1) : 1;
 	if (!(e.mlx.win_ptr = mlx_new_window(e.mlx.mlx_ptr, WIN_X, WIN_Y, "FDF")))
 		free_env(&e, NULL, 1);
 	if (!(e.mlx.img_ptr = mlx_new_image(e.mlx.mlx_ptr, WIN_X, WIN_Y)))

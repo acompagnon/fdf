@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 17:58:19 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/16 20:12:41 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/18 14:00:14 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FDF_H
 # include "libft.h"
 # include "mlx.h"
+# include <fcntl.h>
 # include <stdlib.h>
 # include <math.h>
 # define PINK 0xFC0FC0
@@ -121,6 +122,6 @@ t_dot				new_dot(t_env *e, int y, int x);
 void				init_structs(t_env *e);
 int					malloc_tab(t_env *e);
 void				free_env(t_env *e, void *to_free, int to_exit);
-void				sort_input(t_env *e);
+void				sort_input(t_env *e, int fd);
 
 #endif

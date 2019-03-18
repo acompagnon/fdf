@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 18:43:56 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/16 19:32:44 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/18 14:35:45 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,11 @@ void			free_env(t_env *e, void *to_free, int to_exit)
 	while (e->map)
 	{
 		tmp = e->map;
+		free(tmp->line);
 		e->map = e->map->next;
 		free(tmp);
 	}
+	e->mlx.img_ptr ? free(e->mlx.img_ptr) : 1;
 	(e->map_tab) ? free_tab(e) : 1;
 	to_free ? free(to_free) : 1;
 	to_exit ? exit(1) : 1;

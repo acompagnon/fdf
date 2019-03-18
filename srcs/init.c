@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 12:03:08 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/16 20:25:09 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/18 13:49:25 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,8 @@ t_dot		new_dot(t_env *e, int y, int x)
 	rotate_x(e, &dot.y, &dot.z);
 	rotate_y(e, &dot.x, &dot.z);
 	rotate_z(e, &dot.x, &dot.y);
-	if (!e->camera.move_x && !e->camera.move_y)
-	{
-		dot.x += WIN_X / 2;
-		dot.y += WIN_Y / 2;
-	}
+	dot.x += WIN_X / 2;
+	dot.y += WIN_Y / 2;
 	return (dot);
 }
 
