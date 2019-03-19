@@ -6,7 +6,7 @@
 #    By: acompagn <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 17:56:14 by acompagn          #+#    #+#              #
-#    Updated: 2019/03/18 13:46:12 by acompagn         ###   ########.fr        #
+#    Updated: 2019/03/19 16:41:47 by acompagn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ DIR_OBJ = obj
 FDF_OBJ = $(patsubst %,$(DIR_OBJ)/%,$(SRCS:.c=.o))
 LIBFT = libft/libft.a
 
-CFLAGS = -Wall -Werror -Wextra -g3
+CFLAGS = -Wall -Werror -Wextra
 
 RED = \033[31m
 GREEN = \033[32m

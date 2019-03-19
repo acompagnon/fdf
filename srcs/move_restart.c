@@ -6,7 +6,7 @@
 /*   By: acompagn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 18:40:40 by acompagn          #+#    #+#             */
-/*   Updated: 2019/03/18 16:08:45 by acompagn         ###   ########.fr       */
+/*   Updated: 2019/03/19 16:39:03 by acompagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void		erase_zone(t_env *e, int x, int y)
 void		clean_window(t_env *e)
 {
 	e->mlx.img_ptr ? free(e->mlx.img_ptr) : 1;
+	e->mlx.data ? free(e->mlx.data) : 1;
 	if (!(e->mlx.img_ptr = mlx_new_image(e->mlx.mlx_ptr, WIN_X, WIN_Y)))
 		free_env(e, NULL, 1);
 	e->mlx.data = mlx_get_data_addr(e->mlx.img_ptr, &e->mlx.bpp,
